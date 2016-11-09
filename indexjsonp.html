@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+  <head>
+      <meta charset="utf-8">
+    <title>Hola JSON API WP</title>
+    <link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
+  </head>
+  <body style="display: none;" class="w3-container">
+    <div class="w3-panel w3-leftbar w3-sand">
+      <p class="cite w3-xxlarge w3-serif"><i class="fa fa-quote-right w3-xxlarge w3-opacity"></i></p>
+    </div>
+
+    </div>
+    <a href="javascript:mostrarCita();" class="w3-btn-floating-large w3-ripple w3-grey" style="text-decoration: none;">+</a>
+  </body>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+</html>
+
+<script type="text/javascript">
+  $( document ).ready(function() {
+      var rotar = false;
+      mostrarCita();
+      if(rotar){
+        //puedo efectuar una recarga cada x segundos
+        var intervalId = setInterval(function() {
+            mostrarCita();
+        }, 2000);
+        $(".w3-ripple").hide();
+      };
+  });
+
+  function mostrarCita(){
+    $.ajax({
+      type: 'GET',
+          "url": "http://quotesondesign.com/wp-json/posts?filter[orderby]=rand&filter[posts_per_page]=1&_jsonp=logicaCliente",
+          "dataType": "jsonp",
+          //jsonpCallback: 'logicaCliente'
+    });
+  }
+  function logicaCliente(a){
+        console.log(a);
+        $(".fa").hide().html(a[0].content + "<i>&mdash; " + a[0].title + "</i>").fadeIn('slow');
+        $('body').fadeIn('slow');
+  }
+</script>

@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <meta charset="utf-8">
+    <title>Hola JSON API WP</title>
+  </head>
+  <body>
+
+  </body>
+</html>
+
+<script type="text/javascript">
+  $( document ).ready(function() {
+    $.getJSON("http://quotesondesign.com/wp-json/posts?filter[orderby]=rand&filter[posts_per_page]=1&callback=", function(a) {
+      $("body").append(a[0].content + "<p>&mdash; " + a[0].title + "</p>")
+    });
+  });
+</script>
